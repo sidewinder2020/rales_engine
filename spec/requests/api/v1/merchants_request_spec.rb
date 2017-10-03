@@ -26,5 +26,10 @@ describe "Merchants API" do
     name = create(:merchant).name
 
     get "/api/v1/merchants/"
+
+    merchant = JSON.parse(response.body)
+
+    expect(response).to be_success
+    expect(merchant["name"]).to eq(name)
   end
 end
