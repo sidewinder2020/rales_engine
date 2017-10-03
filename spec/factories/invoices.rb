@@ -6,6 +6,6 @@ FactoryGirl.define do
     updated_at "2012-03-28 14:53:59 UTC"
 
     merchant
-    invoice
+    customer
   end
 end

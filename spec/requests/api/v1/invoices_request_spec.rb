@@ -10,11 +10,11 @@ describe "Invoices API" do
     expect(response).to be_success
   end
 end
-  
+
   context "get invoice" do
     it "shows an invoice" do
-      create :invoice
-      get '/api/v1/invoices/1'
+      invoice = create(:invoice)
+      get "/api/v1/invoices/#{invoice.id}"
       expect(response).to be_success
     end
   end
