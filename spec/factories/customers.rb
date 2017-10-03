@@ -6,4 +6,3 @@ FactoryGirl.define do
     updated_at "2012-03-28 14:53:59 UTC"
   end
 end
-Add Comment

@@ -1,10 +1,10 @@
 module Api
   module V1
-    module Merchants
+    module Customers
       class RandomController < ApplicationController
 
         def show
-          render json: Merchant.random
+          render json: Customer.random
         end
 
       end
