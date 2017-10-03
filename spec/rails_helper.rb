@@ -30,13 +30,13 @@ ActiveRecord::Migration.maintain_test_schema!
 
 DatabaseCleaner.strategy = :truncation
 
-RSpec.configure do |c|
+RSpec.configure do |config|
 
-  c.before(:all) do
+  config.before(:all) do
     DatabaseCleaner.clean
   end
 
-  c.after(:each) do
+  config.after(:each) do
     DatabaseCleaner.clean
   end
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
