@@ -106,4 +106,14 @@ describe "Merchants API" do
     expect(merchant.first["id"]).to eq(id)
     expect(merchant.count).to eq(1)
   end
+
+  # it "can pull a random record" do
+  #   create_list(:merchant, 5)
+  #
+  #   get "/api/v1/merchants/random"
+  #   merchant = JSON.parse(response.body)
+  #
+  #   expect(response).to be_success
+  #   expect(merchant["id"]).to eq(merchant["id"])
+  # end
 end
