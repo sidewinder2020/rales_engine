@@ -1,9 +1,10 @@
 Rails.application.routes.draw do
- namespace :API do
-    namespace :V1 do
+ namespace :api do
+    namespace :v1 do
       namespace :invoices do
-        get "find_all", to: "search#index"
-        get "find", to: "search#show"
+        get 'find', to: 'search#show'
+        get 'find_all', to: 'search#index'
+
       end
       resources :invoices, only: [:index, :show]
     end
