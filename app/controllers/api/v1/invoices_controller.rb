@@ -10,6 +10,10 @@ module API
         render json:Invoice.create(item_params)
       end
 
+      def show
+        invoice = Invoice.find(params[:id])
+      end
+
     end
   end
 

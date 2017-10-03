@@ -19,4 +19,12 @@ end
       expect(invoice.last).to eq(invoice_params[:customer_id][:merchant_id][:status])
     end
   end
+  context "get invoice" do
+    it "shows an invoice" do
+      create :invoice
+      get '/api/v1/invoices/1'
+      expect(response).to be_success
+    end
+  end
+
 end
