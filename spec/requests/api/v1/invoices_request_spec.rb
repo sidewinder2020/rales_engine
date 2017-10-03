@@ -10,15 +10,7 @@ describe "Invoices API" do
     expect(response).to be_success
   end
 end
-  context "post invoices" do
-    it "creates a valid invoice" do
-      invoice_params = {customer_id: 1, merchant_id: 1, status: "shippped"}
-      post('/api/v1/invoices', params {invoices: [invoice_params]})
-      invoice = Invoice.last
-      expect(response).to be_success
-      expect(invoice.last).to eq(invoice_params[:customer_id][:merchant_id][:status])
-    end
-  end
+  
   context "get invoice" do
     it "shows an invoice" do
       create :invoice
