@@ -9,7 +9,7 @@ class Invoice < ApplicationRecord
     order("random()").first
   end
 
-   def self.total_revenue
+   def self.invoice_total_revenue
     joins(:transactions, :invoice_items)
     .where('transactions.result = ?', 'success')
     .select("invoice_items.quantity * invoice_items.unit_price AS revenue")
