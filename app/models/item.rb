@@ -6,4 +6,8 @@ class Item < ApplicationRecord
   def random
     order("random()").first
   end
+
+  def unit_price_to_2_sig_figs
+    (unit_price / 100.0).to_s
+  end
 end
