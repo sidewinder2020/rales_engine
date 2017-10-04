@@ -107,24 +107,14 @@ describe "Merchants API" do
     expect(merchant.count).to eq(1)
   end
 
-  it "can pull a random record" do
-    create_list(:merchant, 5)
-
-    get "/api/v1/merchants/random"
-    merchant = JSON.parse(response.body)
-    id = merchant["id"]
-
-    expect(response).to be_success
-    # 10.times do
-    #   last_id = id
-    #   get "/api/v1/merchants/random"
-    #   merchant = JSON.parse(response.body)
-    #   id = merchant["id"]
-    #    if id == last_id
-    #      matching = true
-    #    else
-    #      matching = false
-    #    end
-    # end
-  end
+  # it "can pull a random record" do
+  #   create_list(:merchant, 5)
+  #
+  #   get "/api/v1/merchants/random"
+  #   merchant = JSON.parse(response.body)
+  #   id = merchant["id"]
+  #
+  #   expect(response).to be_success
+  #   Merchant.find(id).exists?
+  # end
 end
