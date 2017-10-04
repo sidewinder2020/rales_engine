@@ -9,11 +9,13 @@ class Invoice < ApplicationRecord
     order("random()").first
   end
 
-  def self.total_revenue
-    .joins("INNER JOIN transactions ON transactions.invoice_id = invoices.id AND transactions.result = 'success'")
-    .joins("INNER JOIN invoice_items ON invoices.id = invoice_items.invoice_id")
+   def self.total_revenue
+    joins(:transactions, :invoice_items)
+    .where('transactions.result = ?', 'success')
     .select("invoice_items.quantity * invoice_items.unit_price AS revenue")
     .map(&:revenue)
     .reduce(:+)
-  end
+   end
+
+
 end
