@@ -9,9 +9,8 @@ class Invoice < ApplicationRecord
     order("random()").first
   end
 
-  def total_revenue
-    Invoice.joins("INNER JOIN transactions ON transactions.invoice_id = invoices.id AND transactions.result = 'success'")
-    .joins("INNER JOIN merchants ON merchants.id = invoices.merchant_id AND merchants.id = 1")
+  def self.total_revenue
+    .joins("INNER JOIN transactions ON transactions.invoice_id = invoices.id AND transactions.result = 'success'")
     .joins("INNER JOIN invoice_items ON invoices.id = invoice_items.invoice_id")
     .select("invoice_items.quantity * invoice_items.unit_price AS revenue")
     .map(&:revenue)
