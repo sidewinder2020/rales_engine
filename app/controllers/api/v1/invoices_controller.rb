@@ -7,7 +7,7 @@ module Api
       end
 
       def show
-        invoice = Invoice.find(params[:id])
+        render json: Invoice.find(params[:id])
       end
 
     end
