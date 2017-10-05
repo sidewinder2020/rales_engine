@@ -3,6 +3,7 @@ class Item < ApplicationRecord
   has_many :invoice_items
   has_many :invoices, through: :invoice_items
 
+  default_scope { order(:id) }
   def random
     order("random()").first
   end
@@ -12,7 +13,8 @@ class Item < ApplicationRecord
   end
 
   def self.most_revenue(limit_quantity)
-    select("items.*, sum(invoice_items.quantity * invoice_items.unit_price) as item_revenue")
+    unscoped
+    .select("items.*, sum(invoice_items.quantity * invoice_items.unit_price) as item_revenue")
     .joins(invoices: [:transactions])
     .merge(Transaction.successful)
     .group(:id)
