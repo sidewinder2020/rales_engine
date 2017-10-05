@@ -19,7 +19,7 @@ class Merchant < ApplicationRecord
   end
 
   def self.most_revenue(limit_quantity)
-    .select("merchants.*, sum(invoice_items.quantity * invoive_items.unit_price) as merch_revenue")
+    select("merchants.*, sum(invoice_items.quantity * invoice_items.unit_price) as merch_revenue")
     .joins(invoices: [:invoice_items, :transactions])
     .merge(Transaction.successful)
     .order("merch_revenue desc")
@@ -37,7 +37,7 @@ class Merchant < ApplicationRecord
   def customers_with_pending_invoices
     customers
     .joins(:transactions)
-    .merge(Transactions.failed)
+    .merge(Transaction.failed)
   end
 
 end
