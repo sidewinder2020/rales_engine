@@ -3,8 +3,8 @@ module Api
     module Merchants
       class FavoriteCustomerController < ApplicationController
 
-        def index
-          render json: Merhant.find(params[:id]).favorite_customer
+        def show
+          render json: Merchant.find(params[:id]).favorite_customer
         end
 
       end

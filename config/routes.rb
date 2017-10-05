@@ -8,7 +8,7 @@ Rails.application.routes.draw do
         get "/:id/customers_with_pending_invoices", to: "customers_with_pending_invoices#index"
         get "/:id/favorite_customer", to: "favorite_customer#show"
         get "/most_revenue", to: "most_revenue_quantity#index"
-        get "/revenue", to: "revenue_by_date#index"
+        get "/:id/revenue", to: "revenue_by_date#index"
 
       end
       resources :merchants, only: [:index, :show]
@@ -38,7 +38,7 @@ Rails.application.routes.draw do
         get "find", to: "search#show"
         get "find_all", to: "search#index"
         get "random", to: "random#show"
-        get "items/most_revenue", to: "most_revenue#index"
+        get "/most_revenue", to: "most_revenue#index"
       end
       resources :items, only: [:index, :show]
 

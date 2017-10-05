@@ -12,7 +12,7 @@ class Item < ApplicationRecord
   end
 
   def self.most_revenue(limit_quantity)
-    .select("items.*, sum(invoice_items.quantity * invoice_items.unit_price) as item_revenue")
+    select("items.*, sum(invoice_items.quantity * invoice_items.unit_price) as item_revenue")
     .joins(invoices: [:transactions])
     .merge(Transaction.successful)
     .group(:id)

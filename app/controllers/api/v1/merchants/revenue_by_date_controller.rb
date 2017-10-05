@@ -4,7 +4,18 @@ module Api
       class RevenueByDateController < ApplicationController
 
         def index
-          Merchant.find(params[:id]).merchant_revenue_by_date
+          binding.pry
+        render json:  Merchant.find(params[:id]).merchant_revenue_by_date(revenue_params)
+        end
+
+        private
+
+        def revenue_params
+          if params[:date]
+            params[:created_at] = params[:date]
+            params.permit(:merchant_id, :created_at)
+          else
+            params.permit(:merchant_id)
         end
 
       end
