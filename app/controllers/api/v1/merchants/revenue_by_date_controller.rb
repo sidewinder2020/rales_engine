@@ -5,17 +5,15 @@ module Api
 
         def index
           binding.pry
-        render json:  Merchant.find(params[:id]).merchant_revenue_by_date(revenue_params)
+        render json:  Merchant..merchant_revenue_by_date(revenue_params)
         end
 
         private
 
         def revenue_params
-          if params[:date]
+            params[:date]
             params[:created_at] = params[:date]
-            params.permit(:merchant_id, :created_at)
-          else
-            params.permit(:merchant_id)
+            params.permit(:created_at)
         end
 
       end

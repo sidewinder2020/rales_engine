@@ -61,9 +61,10 @@ describe "Invoice Items API" do
     get "/api/v1/invoice_items/find?unit_price=#{unit_price}"
 
     invoice_item = JSON.parse(response.body)
+    unit_price_1 = (unit_price / 100.0).to_s
 
     expect(response).to be_success
-    expect(invoice_item["unit_price"]).to eq(unit_price)
+    expect(invoice_item["unit_price"]).to eq(unit_price_1)
   end
 
   it "can search for invoice_item by created_at" do
@@ -132,9 +133,10 @@ describe "Invoice Items API" do
     get "/api/v1/invoice_items/find_all?unit_price=#{unit_price}"
 
     invoice_item = JSON.parse(response.body)
+    unit_price_1 = (unit_price / 100.0).to_s
 
     expect(response).to be_success
-    expect(invoice_item.first["unit_price"]).to eq(unit_price)
+    expect(invoice_item.first["unit_price"]).to eq(unit_price_1)
     expect(invoice_item.count).to eq(1)
   end
 
