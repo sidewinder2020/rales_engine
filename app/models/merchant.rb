@@ -34,5 +34,10 @@ class Merchant < ApplicationRecord
     .sum("invoice_items.quantity * invoice_items.unit_price")
   end
 
+  def customers_with_pending_invoices
+    customers
+    .joins(:transactions)
+    .merge(Transactions.failed)
+  end
 
 end
