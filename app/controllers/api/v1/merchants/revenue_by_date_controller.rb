@@ -4,18 +4,9 @@ module Api
       class RevenueByDateController < ApplicationController
 
         def index
-          binding.pry
-        render json:  Merchant..merchant_revenue_by_date(revenue_params)
+        total_revenue = Merchant.merchant_revenue_by_date(params[:date])
+        render json: total_revenue, serializer: MerchantRevenueSerializer
         end
-
-        private
-
-        def revenue_params
-            params[:date]
-            params[:created_at] = params[:date]
-            params.permit(:created_at)
-        end
-
       end
     end
   end
