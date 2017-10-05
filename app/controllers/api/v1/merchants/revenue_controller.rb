@@ -10,7 +10,12 @@ module Api
         private
 
         def revenue_params
-          params.permit(:created_at)
+          if params[:date]
+            params[:created_at] = params[:date]
+            params.permit(:merchant_id, :created_at)
+          else
+            params.permit(:merchant_id)
+          end
         end
 
       end
