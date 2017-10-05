@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe "Customers Relationships API" do
-  it "returns a collection of associated invoices" do
+  it "returns a collection invoices" do
     customer = create(:customer)
     merchant = create(:merchant)
     create_list(:invoice, 13, customer: customer, merchant: merchant)
