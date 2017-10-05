@@ -47,13 +47,28 @@ describe "merchant business intelligence API" do
     expect(merchants.count).to eq 1
     expect(merchants.first["id"]).to eq(merchant1.id)
     expect(merchants.first["id"]).to_not eq(merchant2.id)
+  end
 
+  it "can return the total revenue for date x across all merchants" do
+    merchant1 = create(:merchant)
+    merchant2 = create(:merchant)
+    item = create(:item)
+    customer1 = create(:customer)
+    invoice1 = create(:invoice, customer: customer1, merchant: merchant1)
+    invoice2 = create(:invoice, customer: customer1, merchant: merchant1)
+    transaction1 = create(:transaction, invoice: invoice1)
+    transaction2 = create(:transaction, invoice: invoice1)
+    transaction3 = create(:transaction, invoice: invoice2)
+    invoice_item1 = create(:invoice_item, invoice: invoice1, item:item)
+    invoice_item2 = create(:invoice_item, invoice: invoice2, item:item)
+
+    get "/api/v1/merchants/revenue?date=2012-03-27%2014:53:59"
+    revenue = JSON.parse(response.body)
+
+    expect(response).to be_success
+    expect(revenue).to eq({"total_revenue"=>"2045.25"})
 
   end
-  #
-  # it "can return the total revenue for date x across all merchants" do
-  #   get "/api/v1/merchants/revenue?date=5"
-  # end
 
   it "can return the total revenue for a merchant across successful transactions" do
     merchant = create(:merchant)
