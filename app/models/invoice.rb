@@ -9,13 +9,13 @@ class Invoice < ApplicationRecord
     order("random()").first
   end
 
-  #  def self.invoice_total_revenue
-  #   joins(:transactions, :invoice_items)
-  #   .where('transactions.result = ?', 'success')
-  #   .select("invoice_items.quantity * invoice_items.unit_price AS revenue")
-  #   .map(&:revenue)
-  #   .reduce(:+)
-  #  end
+   def self.invoice_total_revenue
+    joins(:transactions, :invoice_items)
+    .where('transactions.result = ?', 'success')
+    .select("invoice_items.quantity * invoice_items.unit_price AS revenue")
+    .map(&:revenue)
+    .reduce(:+)
+  end
 
    def self.item_best_day
      joins(:transactions)
