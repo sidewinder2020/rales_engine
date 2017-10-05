@@ -4,7 +4,6 @@ module Api
       class RevenueByDateController < ApplicationController
 
         def index
-          binding.pry
         render json:  Merchant..merchant_revenue_by_date(revenue_params)
         end
 
