@@ -128,9 +128,23 @@ describe "merchant business intelligence API" do
     expect(customer["id"]).to eq(customer1.id)
   end
 
-  # it "can return a collection of customers with invoices that have no successful transactions" do
-  #   get "/api/v1/merchants/#{merchant.id}/customers_with_pending_invoices"
-  # end
+  it "can return a collection of customers with invoices that have no successful transactions" do
+    merchant = create(:merchant)
+    customer1 = create(:customer)
+    customer2 = create(:customer)
+    invoice1 = create(:invoice, customer: customer1, merchant: merchant)
+    invoice2 = create(:invoice, customer: customer2, merchant: merchant)
+    transaction1 = create(:transaction, result: "failed", invoice: invoice1)
+    transaction2 = create(:transaction, result: "failed", invoice: invoice1)
+    transaction3 = create(:transaction, invoice: invoice2)
+
+    get "/api/v1/merchants/#{merchant.id}/customers_with_pending_invoices"
+
+    customer = JSON.parse(response.body)
+
+    expect(response).to be_success
+    expect(customer[0]["id"]).to eq(customer1.id)
+  end
 
 
 end
