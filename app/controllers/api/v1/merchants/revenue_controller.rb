@@ -4,7 +4,8 @@ module Api
       class RevenueController < ApplicationController
 
         def show
-          render json: Merchant.find(params[:id]).total_revenue(revenue_params)
+          revenue = Merchant.find(params[:id]).total_revenue(revenue_params)
+          render json: revenue, serializer: MerchantRevenueSerializer
         end
 
         private
