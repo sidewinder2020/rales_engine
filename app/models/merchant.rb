@@ -53,8 +53,9 @@ include ActiveModel::Serialization
   end
 
   def self.most_items(limit = 5)
-    joins(:items)
-    .select("merchants.*, count(merchants.id) as total")
+    joins(invoices: [:invoice_items, :transactions])
+    .select("merchants.*, sum(invoice_items.quantity) as total")
+    .merge(Transaction.successful)
     .group(:id)
     .order("total DESC")
     .limit(limit)

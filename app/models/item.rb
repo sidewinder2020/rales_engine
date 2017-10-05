@@ -23,7 +23,8 @@ class Item < ApplicationRecord
   end
 
   def self.most_items(limit = 5)
-    joins(invoice_items: [invoice: [:transactions]])
+    unscoped
+    .joins(invoice_items: [invoice: [:transactions]])
     .select('items.*, sum(invoice_items.quantity) as most_items')
     .where('transactions.result = ?', 'success')
     .order('most_items DESC')
