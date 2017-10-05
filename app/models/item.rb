@@ -13,10 +13,14 @@ class Item < ApplicationRecord
 
   def self.most_items(limit = 5)
     joins(invoice_items: [invoice: [:transactions]])
+    .select('items.*, sum(invoice_items.quantity) as most_items')
     .where('transactions.result = ?', 'success')
-    .select("invoice_items.invoice_id as inv_id, count(invoice_items.invoice_id) as total")
-    .group(:inv_id)
-    .order('total DESC')
+    .order('most_items DESC')
+    .group(:id)
     .limit(limit)
+  end
+
+  def best_day
+    invoices.item_best_day
   end
 end
