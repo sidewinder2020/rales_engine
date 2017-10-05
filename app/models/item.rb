@@ -10,4 +10,14 @@ class Item < ApplicationRecord
   def unit_price_to_2_sig_figs
     (unit_price / 100.0).to_s
   end
+
+  def self.most_revenue(limit_quantity)
+    .select("items.*, sum(invoice_items.quantity * invoice_items.unit_price) as item_revenue")
+    .joins(invoices: [:transactions])
+    .merge(Transaction.successful)
+    .group(:id)
+    .order("item_revenue DESC")
+    .limit(limit_quantity)
+  end
+
 end
