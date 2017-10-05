@@ -7,4 +7,26 @@ class Merchant < ApplicationRecord
     order("random()").first
   end
 
+  def total_revenue(filter = nil)
+    invoices
+    .where(filter)
+    .invoice_total_revenue
+  end
+
+  def self.most_items(limit = 5)
+    joins(:items)
+    .select("merchants.id, count(merchants.id) as total, merchants.name")
+    .group(:id)
+    .order("total DESC")
+    .limit(limit)
+  end
+
+  def self.customers_fav_merchant
+    joins(:invoices, :customers)
+    .select("merchants.id, merchants.name, count(merchants.id) as total")
+    .group(:id)
+    .order("total DESC")
+    .first
+  end
+
 end

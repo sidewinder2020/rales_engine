@@ -50,9 +50,10 @@ describe "Items API" do
     get "/api/v1/items/find?unit_price=#{unit_price}"
 
     item = JSON.parse(response.body)
+    unit_price_1 = (unit_price / 100.0).to_s
 
     expect(response).to be_success
-    expect(item["unit_price"]).to eq(unit_price)
+    expect(item["unit_price"]).to eq(unit_price_1)
   end
 
   it "can search for item by merchant_id" do
@@ -132,9 +133,10 @@ describe "Items API" do
     get "/api/v1/items/find_all?unit_price=#{unit_price}"
 
     item = JSON.parse(response.body)
+    unit_price_1 = (unit_price / 100.0).to_s
 
     expect(response).to be_success
-    expect(item.first["unit_price"]).to eq(unit_price)
+    expect(item.first["unit_price"]).to eq(unit_price_1)
     expect(item.count).to eq(1)
   end
 

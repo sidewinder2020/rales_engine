@@ -23,14 +23,16 @@ describe "Transactions API" do
   end
 
   it "can search for transaction by credit_card_number" do
-    credit_card_number = create(:transaction).credit_card_number
+    transaction = create(:transaction)
+    id = transaction.id
+    credit_card_number = transaction.credit_card_number
 
     get "/api/v1/transactions/find?credit_card_number=#{credit_card_number}"
 
     transaction = JSON.parse(response.body)
 
     expect(response).to be_success
-    expect(transaction["credit_card_number"]).to eq(credit_card_number)
+    expect(transaction["id"]).to eq(id)
   end
 
   it "can search for transaction by result" do
@@ -92,14 +94,16 @@ describe "Transactions API" do
   end
 
   it "can get all transactions by matching credit_card_number" do
-    credit_card_number = create(:transaction).credit_card_number
+    transaction = create(:transaction)
+    credit_card_number = transaction.credit_card_number
+    id = transaction.id
 
     get "/api/v1/transactions/find_all?credit_card_number=#{credit_card_number}"
 
     transaction = JSON.parse(response.body)
 
     expect(response).to be_success
-    expect(transaction.first["credit_card_number"]).to eq(credit_card_number)
+    expect(transaction.first["id"]).to eq(id)
     expect(transaction.count).to eq(1)
   end
 
