@@ -13,7 +13,6 @@ module Api
           params.permit(:quantity)
         end
 
-
       end
     end
   end

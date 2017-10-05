@@ -4,7 +4,7 @@ module Api
       class MostItemsController < ApplicationController
 
         def index
-          render json: Merchant.most_items(params["quantity"])
+          render json: Merchant.most_items(params[:quantity])
         end
 
       end
