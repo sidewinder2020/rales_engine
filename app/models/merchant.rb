@@ -1,8 +1,13 @@
+
 class Merchant < ApplicationRecord
+
+include ActiveModel::Serialization
+
   has_many :invoices
   has_many :customers, through: :invoices
   has_many :items
   has_many :invoice_items, through: :invoices
+  has_many :transactions, through: :invoices
 
   def self.random
     order("random()").first
@@ -27,12 +32,11 @@ class Merchant < ApplicationRecord
     .limit(limit_quantity)
   end
 
-  def merchant_revenue_by_date(date)
-    invoices
-    .joins(:invoice_items, :transactions)
+  def self.merchant_revenue_by_date(date)
+    Invoice.joins(:invoice_items, :transactions)
     .where(invoices: {created_at: date})
     .merge(Transaction.successful)
-    .sum("quantity * unit_price")
+    .sum("invoice_items.quantity * invoice_items.unit_price")
   end
 
   def customers_with_pending_invoices
@@ -50,7 +54,7 @@ class Merchant < ApplicationRecord
 
   def self.most_items(limit = 5)
     joins(:items)
-    .select("merchants.id, count(merchants.id) as total, merchants.name")
+    .select("merchants.*, count(merchants.id) as total")
     .group(:id)
     .order("total DESC")
     .limit(limit)
@@ -63,5 +67,20 @@ class Merchant < ApplicationRecord
     .order("total DESC")
     .first
   end
+
+  def customers_with_pending_invoices
+    Customer.find_by_sql("SELECT customers.* FROM customers
+                         INNER JOIN invoices ON customers.id=invoices.customer_id
+                         INNER JOIN merchants ON invoices.merchant_id=merchants.id
+                         INNER JOIN transactions ON invoices.id=transactions.invoice_id
+                         WHERE merchants.id=#{self.id} AND transactions.result='failed'
+                         EXCEPT SELECT customers.* FROM customers
+                         INNER JOIN  invoices ON customers.id=invoices.customer_id
+                         INNER JOIN merchants ON invoices.merchant_id=merchants.id
+                         INNER JOIN transactions ON invoices.id=transactions.invoice_id
+                         WHERE merchants.id=#{self.id} AND transactions.result='success'
+")
+  end
+
 
 end
