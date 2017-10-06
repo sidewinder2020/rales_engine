@@ -30,12 +30,12 @@
 After cd-ing into the spec file, run:
 * ```RUBYOPT="-W0" rake```
 
-### Endpoints
+# Endpoints
   
 There are quite a few API endpoints available. To access any of them, enter http://localhost:3000 if you're running it on a local server via rails s.
 Follow the /3000/ with any of the following endpoints:
 
-# Customers:
+### Customers:
 Valid customer parameters are id, first_name, last_name, created_at, and updated_at.
 
 * GET '/api/v1/customers/random'
@@ -54,7 +54,7 @@ Valid customer parameters are id, first_name, last_name, created_at, and updated
 
 * GET '/api/v1/customers/find_all?parameter=x'
 
-# Invoices:
+### Invoices:
 Valid invoice parameters are id, status, customer_id, merchant_id, created_at, and updated_at.
 
 * GET '/api/v1/invoices/random'
@@ -77,7 +77,7 @@ Valid invoice parameters are id, status, customer_id, merchant_id, created_at, a
 
 * GET '/api/v1/invoices/find_all?parameter=x'
 
-# Items:
+### Items:
 Valid item parameters are id, name, description, unit_price, created_at, updated_at, and merchant_id.
 
 * GET '/api/v1/items/most_items?quantity=x'
@@ -100,7 +100,7 @@ Valid item parameters are id, name, description, unit_price, created_at, updated
 
 * GET '/api/v1/items/find_all?parameter=x'
 
-# Invoice_Items:
+### Invoice_Items:
 Valid invoice_item parameters are id, item_id, invoice_id, quantity, unit_price, created_at, and updated_at.
 
 * GET '/api/v1/invoice_items/random'
@@ -117,7 +117,7 @@ Valid invoice_item parameters are id, item_id, invoice_id, quantity, unit_price,
 
 * GET '/api/v1/invoice_items/find_all?parameter=x'
 
-# Merchants:
+### Merchants:
 Merchant parameters are id, name, created_at, and updated_at.
 
 * GET '/api/v1/merchants/most_items?quantity=x'
@@ -146,7 +146,7 @@ Merchant parameters are id, name, created_at, and updated_at.
 
 * GET '/api/v1/merchants/find_all?parameter=x'
 
-# Transactions:
+### Transactions:
 Valid transaction parameters are id, invoice_id, credit_card_number, credit_card_expiration_date, result, created_at, and updated_at.
 
 * GET '/api/v1/transactions/random'
