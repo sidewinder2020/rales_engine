@@ -1,24 +1,38 @@
-# README
+# Rails Engine
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+### Prerequisites to Run Locally
 
-Things you may want to cover:
+  * [Rails version 5.1.4](http://installrails.com/)
 
-* Ruby version
+  * [Ruby version 2.4.1](https://www.ruby-lang.org/en/documentation/installation/)
 
-* System dependencies
+### Running Locally
 
-* Configuration
+  * Clone this repo.
+  * cd into it
+  * ```bundle install```
+  * ```rake db:setup```
+  * ```rake seed:create_database```
 
-* Database creation
+## Authors
 
-* Database initialization
+* **Joan Harrington**  - [Github](https://github.com/sidewinder2020)
+* **Kali Borkoski** - [Github](https://github.com/JunePaloma)
 
-* How to run the test suite
+## Acknowledgments
 
-* Services (job queues, cache servers, search engines, etc.)
+* Our glorious leaders (Josh Mejia & Cory Westerfield), who light our way with their knowledge and grace
+* Sal, the skeleton
 
-* Deployment instructions
+### Built With
 
-* ...
+ * Rails
+ * Ruby
+ * ActiveRecord
+ * Postgresql (better than ActiveRecord on ALL levels)
+
+### Contributing
+
+ * You can't. You aren't important enough, nor do we acknowledge your authority.
+
+
