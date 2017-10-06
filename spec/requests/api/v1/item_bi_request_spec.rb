@@ -48,12 +48,24 @@ describe "item business intelligence API" do
     expect(items[1]["id"]).to eq(item2.id)
 
   end
-  #
-  # it "returns the date with the most sales for the given item using the invoice date" do
 
-  # GET /api/v1/items/:id/best_day
-  #   it "if there are multiple days with equal number of sales, it retuns the most recent day" do
-  #   end
-  # end
+  it "returns the date with the most sales for the given item using the invoice date" do
+      customer = create(:customer)
+      merchant = create(:merchant)
+      item = create(:item, merchant: merchant)
+      invoice1 = create(:invoice, customer: customer, merchant: merchant)
+      invoice2 = create(:invoice, customer: customer, merchant: merchant, created_at: "2012-03-28 14:53:59.000Z")
+      transaction1 = create(:transaction, invoice: invoice1)
+      transaction2 = create(:transaction, invoice: invoice2)
+      invoice_item1 = create(:invoice_item, invoice: invoice1, item:item, quantity: 10)
+      invoice_item2 = create(:invoice_item, invoice: invoice2, item:item)
+
+      get "/api/v1/items/#{item.id}/best_day"
+
+      date = JSON.parse(response.body)
+
+      expect(response).to be_success
+      expect(date["best_day"].to_datetime).to eq(invoice1.created_at.to_datetime)
+  end
 
 end
